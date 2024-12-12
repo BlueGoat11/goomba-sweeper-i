@@ -1,6 +1,3 @@
-
-> Open this page at [https://bluegoat11.github.io/goomba-sweeper-i/](https://bluegoat11.github.io/goomba-sweeper-i/)
-
 ## Use as Extension
 
 This repository can be added as an **extension** in MakeCode.
