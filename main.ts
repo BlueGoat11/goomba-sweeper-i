@@ -7,19 +7,11 @@ function Forward_MARCH () {
     hummingbird.setRotationServo(FourPort.One, -68)
     hummingbird.setRotationServo(FourPort.Two, 50)
 }
-input.onButtonPressed(Button.A, function () {
-    hummingbird.setRotationServo(FourPort.One, 0)
-    hummingbird.setRotationServo(FourPort.Two, 0)
-})
 function Turn_Left () {
     hummingbird.setRotationServo(FourPort.One, -100)
     basic.pause(2900)
     hummingbird.setRotationServo(FourPort.One, 0)
 }
-input.onButtonPressed(Button.B, function () {
-    hummingbird.setRotationServo(FourPort.One, 0)
-    hummingbird.setRotationServo(FourPort.Two, 0)
-})
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     activate = 1
 })
@@ -39,13 +31,21 @@ while (activate == 0) {
     music.play(music.stringPlayable("C5 A B G A F G E ", 120), music.PlaybackMode.UntilDone)
 }
 basic.showString("Cleaning")
+Turn_Left()
+while (hummingbird.getSensor(SensorType.Distance, ThreePort.One) > 20) {
+    Forward_MARCH()
+}
+hummingbird.setRotationServo(FourPort.One, 0)
+hummingbird.setRotationServo(FourPort.Two, 0)
 while (true) {
-    Turn_Left()
-    while (hummingbird.getSensor(SensorType.Distance, ThreePort.One) > 30) {
+    while (hummingbird.getSensor(SensorType.Distance, ThreePort.One) > 35) {
         Forward_MARCH()
     }
-    hummingbird.setRotationServo(FourPort.One, 0)
-    hummingbird.setRotationServo(FourPort.Two, 0)
     Turn_Right()
-    break;
+    Turn_Right()
+    while (hummingbird.getSensor(SensorType.Distance, ThreePort.One) > 35) {
+        Forward_MARCH()
+    }
+    Turn_Left()
+    Turn_Left()
 }
